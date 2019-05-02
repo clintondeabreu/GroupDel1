@@ -1,0 +1,49 @@
+﻿@model BackEnd.Models.IllnessType
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="~/IllnessTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Leukemia Types</a>
+            <a href="~/AdditionalInfoes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Additional Info</a>
+            <a href="~/Medications/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medications</a>
+            <a href="~/MedicationTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medication Types</a>
+            <a href="~/RiskFactors/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factors</a>
+            <a href="~/RiskFactorTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factor Types</a>
+            <a href="~/Symptoms/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptoms</a>
+            <a href="~/SymptomTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptom Types</a>
+            <a href="~/Treatments/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatments</a>
+            <a href="~/TreatmentTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatment Types</a>
+        </div>
+        <div>
+            <h4><b>Illness Type</b></h4>
+            
+            <dl class="dl-horizontal">
+                <dt style="text-decoration: underline;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            <button style="background-color: rgb(255,112,67)"> @Html.ActionLink("Edit", "Edit", new { id = Model.IllnessTypeID }) </button>
+            <button style="background-color: rgb(255,112,67)">@Html.ActionLink("Back to List", "Index") </button>
+</p>
+</body>
+</html>

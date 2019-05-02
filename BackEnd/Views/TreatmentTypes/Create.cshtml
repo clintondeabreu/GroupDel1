@@ -1,0 +1,63 @@
+﻿@model BackEnd.Models.TreatmentType
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="~/IllnessTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Leukemia Types</a>
+            <a href="~/AdditionalInfoes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Additional Info</a>
+            <a href="~/Medications/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medications</a>
+            <a href="~/MedicationTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medication Types</a>
+            <a href="~/RiskFactors/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factors</a>
+            <a href="~/RiskFactorTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factor Types</a>
+            <a href="~/Symptoms/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptoms</a>
+            <a href="~/SymptomTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptom Types</a>
+            <a href="~/Treatments/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatments</a>
+            <a href="~/TreatmentTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatment Types</a>
+        </div>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4><b>Treatment Type </b></h4>
+               
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        
+                        <input style="background-color: rgb(255,112,67)" type="submit" value="Create" class="btn btn-default" /> <button style="background-color: rgb(255,138,101)">@Html.ActionLink("Back to List", "Index") </button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        
+</body>
+</html>

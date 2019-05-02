@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BackEnd.Models.RiskFactorType>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="~/IllnessTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Leukemia Types</a>
+            <a href="~/AdditionalInfoes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Additional Info</a>
+            <a href="~/Medications/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medications</a>
+            <a href="~/MedicationTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Medication Types</a>
+            <a href="~/RiskFactors/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factors</a>
+            <a href="~/RiskFactorTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Risk Factor Types</a>
+            <a href="~/Symptoms/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptoms</a>
+            <a href="~/SymptomTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Symptom Types</a>
+            <a href="~/Treatments/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatments</a>
+            <a href="~/TreatmentTypes/Index" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Treatment Types</a>
+        </div>
+        <br />
+        <table style="border: 1px solid black; border-collapse:collapse" class="table">
+            <tr>
+                <th style="text-decoration: underline;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr style="border: 1px solid black; border-collapse:collapse">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <button style="background-color: rgb(255,138,101)"> @Html.ActionLink("Edit", "Edit", new { id = item.RFT_ID })</button>  <br />
+                    <button style="background-color: rgb(255,138,101)">@Html.ActionLink("Details", "Details", new { id = item.RFT_ID }) </button>  <br />
+                    <button style="background-color: rgb(255,138,101)"> @Html.ActionLink("Delete", "Delete", new { id = item.RFT_ID }) </button>  <br />
+                </td>
+            </tr>
+            }
+        </table>
+        <br />
+        <p>
+            <button style="background-color: rgb(255,112,67)">
+                @*Added styling*@
+                @Html.ActionLink("Create New Entry", "Create")
+            </button>
+        </p>
+</body>
+</html>

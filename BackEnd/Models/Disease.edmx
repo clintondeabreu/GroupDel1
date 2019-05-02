@@ -1,0 +1,757 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DiseaseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdditionalInfo">
+          <Key>
+            <PropertyRef Name="AdditionalInfoID" />
+          </Key>
+          <Property Name="AdditionalInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Illness">
+          <Key>
+            <PropertyRef Name="IllnessID" />
+          </Key>
+          <Property Name="IllnessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RF_ID" Type="int" />
+          <Property Name="IllnessTypeID" Type="int" />
+          <Property Name="TreatmentID" Type="int" />
+          <Property Name="AdditionalInfoID" Type="int" />
+        </EntityType>
+        <EntityType Name="IllnessType">
+          <Key>
+            <PropertyRef Name="IllnessTypeID" />
+          </Key>
+          <Property Name="IllnessTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Medication">
+          <Key>
+            <PropertyRef Name="MedicationID" />
+          </Key>
+          <Property Name="MedicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="MT_ID" Type="int" />
+          <Property Name="IllnessTypeID" Type="int" />
+        </EntityType>
+        <EntityType Name="MedicationType">
+          <Key>
+            <PropertyRef Name="MT_ID" />
+          </Key>
+          <Property Name="MT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="RiskFactor">
+          <Key>
+            <PropertyRef Name="RF_ID" />
+          </Key>
+          <Property Name="RF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="RFT_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RiskFactorType">
+          <Key>
+            <PropertyRef Name="RFT_ID" />
+          </Key>
+          <Property Name="RFT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Symptom">
+          <Key>
+            <PropertyRef Name="SymptomID" />
+          </Key>
+          <Property Name="SymptomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="SymptomTypeID" Type="int" />
+        </EntityType>
+        <EntityType Name="SymptomIllness">
+          <Key>
+            <PropertyRef Name="SymptomID" />
+            <PropertyRef Name="IllnessID" />
+          </Key>
+          <Property Name="SymptomID" Type="int" Nullable="false" />
+          <Property Name="IllnessID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SymptomType">
+          <Key>
+            <PropertyRef Name="SymptomTypeID" />
+          </Key>
+          <Property Name="SymptomTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Treatment">
+          <Key>
+            <PropertyRef Name="TreatmentID" />
+          </Key>
+          <Property Name="TreatmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="TreatmentTypeID" Type="int" />
+        </EntityType>
+        <EntityType Name="TreatmentMedication">
+          <Key>
+            <PropertyRef Name="TreatmentID" />
+            <PropertyRef Name="MedicationID" />
+          </Key>
+          <Property Name="TreatmentID" Type="int" Nullable="false" />
+          <Property Name="MedicationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TreatmentType">
+          <Key>
+            <PropertyRef Name="TreatmentTypeID" />
+          </Key>
+          <Property Name="TreatmentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="fk_AdditonalInfoID">
+          <End Role="AdditionalInfo" Type="Self.AdditionalInfo" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdditionalInfo">
+              <PropertyRef Name="AdditionalInfoID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="AdditionalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IllnessID">
+          <End Role="Illness" Type="Self.Illness" Multiplicity="1" />
+          <End Role="SymptomIllness" Type="Self.SymptomIllness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Illness">
+              <PropertyRef Name="IllnessID" />
+            </Principal>
+            <Dependent Role="SymptomIllness">
+              <PropertyRef Name="IllnessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fK_IllnessTypeID">
+          <End Role="IllnessType" Type="Self.IllnessType" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IllnessType">
+              <PropertyRef Name="IllnessTypeID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="IllnessTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ITID1">
+          <End Role="IllnessType" Type="Self.IllnessType" Multiplicity="0..1" />
+          <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IllnessType">
+              <PropertyRef Name="IllnessTypeID" />
+            </Principal>
+            <Dependent Role="Medication">
+              <PropertyRef Name="IllnessTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicationID1">
+          <End Role="Medication" Type="Self.Medication" Multiplicity="1" />
+          <End Role="TreatmentMedication" Type="Self.TreatmentMedication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medication">
+              <PropertyRef Name="MedicationID" />
+            </Principal>
+            <Dependent Role="TreatmentMedication">
+              <PropertyRef Name="MedicationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MTID">
+          <End Role="MedicationType" Type="Self.MedicationType" Multiplicity="0..1" />
+          <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicationType">
+              <PropertyRef Name="MT_ID" />
+            </Principal>
+            <Dependent Role="Medication">
+              <PropertyRef Name="MT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RFID1">
+          <End Role="RiskFactor" Type="Self.RiskFactor" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskFactor">
+              <PropertyRef Name="RF_ID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="RF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RFT_IF">
+          <End Role="RiskFactorType" Type="Self.RiskFactorType" Multiplicity="0..1" />
+          <End Role="RiskFactor" Type="Self.RiskFactor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskFactorType">
+              <PropertyRef Name="RFT_ID" />
+            </Principal>
+            <Dependent Role="RiskFactor">
+              <PropertyRef Name="RFT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_STID">
+          <End Role="SymptomType" Type="Self.SymptomType" Multiplicity="0..1" />
+          <End Role="Symptom" Type="Self.Symptom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SymptomType">
+              <PropertyRef Name="SymptomTypeID" />
+            </Principal>
+            <Dependent Role="Symptom">
+              <PropertyRef Name="SymptomTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SymptomID1">
+          <End Role="Symptom" Type="Self.Symptom" Multiplicity="1" />
+          <End Role="SymptomIllness" Type="Self.SymptomIllness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Symptom">
+              <PropertyRef Name="SymptomID" />
+            </Principal>
+            <Dependent Role="SymptomIllness">
+              <PropertyRef Name="SymptomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TreatmentID">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TreatmentID1">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
+          <End Role="TreatmentMedication" Type="Self.TreatmentMedication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="TreatmentMedication">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TreatmentTypeID">
+          <End Role="TreatmentType" Type="Self.TreatmentType" Multiplicity="0..1" />
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentType">
+              <PropertyRef Name="TreatmentTypeID" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="TreatmentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiseaseDBModelStoreContainer">
+          <EntitySet Name="AdditionalInfo" EntityType="Self.AdditionalInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Illness" EntityType="Self.Illness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IllnessType" EntityType="Self.IllnessType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medication" EntityType="Self.Medication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicationType" EntityType="Self.MedicationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RiskFactor" EntityType="Self.RiskFactor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RiskFactorType" EntityType="Self.RiskFactorType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Symptom" EntityType="Self.Symptom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymptomIllness" EntityType="Self.SymptomIllness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymptomType" EntityType="Self.SymptomType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreatmentMedication" EntityType="Self.TreatmentMedication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreatmentType" EntityType="Self.TreatmentType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_AdditonalInfoID" Association="Self.fk_AdditonalInfoID">
+            <End Role="AdditionalInfo" EntitySet="AdditionalInfo" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IllnessID" Association="Self.fk_IllnessID">
+            <End Role="Illness" EntitySet="Illness" />
+            <End Role="SymptomIllness" EntitySet="SymptomIllness" />
+          </AssociationSet>
+          <AssociationSet Name="fK_IllnessTypeID" Association="Self.fK_IllnessTypeID">
+            <End Role="IllnessType" EntitySet="IllnessType" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ITID1" Association="Self.fk_ITID1">
+            <End Role="IllnessType" EntitySet="IllnessType" />
+            <End Role="Medication" EntitySet="Medication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicationID1" Association="Self.fk_MedicationID1">
+            <End Role="Medication" EntitySet="Medication" />
+            <End Role="TreatmentMedication" EntitySet="TreatmentMedication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MTID" Association="Self.fk_MTID">
+            <End Role="MedicationType" EntitySet="MedicationType" />
+            <End Role="Medication" EntitySet="Medication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RFID1" Association="Self.fk_RFID1">
+            <End Role="RiskFactor" EntitySet="RiskFactor" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RFT_IF" Association="Self.fk_RFT_IF">
+            <End Role="RiskFactorType" EntitySet="RiskFactorType" />
+            <End Role="RiskFactor" EntitySet="RiskFactor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_STID" Association="Self.fk_STID">
+            <End Role="SymptomType" EntitySet="SymptomType" />
+            <End Role="Symptom" EntitySet="Symptom" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SymptomID1" Association="Self.fk_SymptomID1">
+            <End Role="Symptom" EntitySet="Symptom" />
+            <End Role="SymptomIllness" EntitySet="SymptomIllness" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TreatmentID" Association="Self.fk_TreatmentID">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="Illness" EntitySet="Illness" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TreatmentID1" Association="Self.fk_TreatmentID1">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="TreatmentMedication" EntitySet="TreatmentMedication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TreatmentTypeID" Association="Self.fk_TreatmentTypeID">
+            <End Role="TreatmentType" EntitySet="TreatmentType" />
+            <End Role="Treatment" EntitySet="Treatment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiseaseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdditionalInfo">
+          <Key>
+            <PropertyRef Name="AdditionalInfoID" />
+          </Key>
+          <Property Name="AdditionalInfoID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Illnesses" Relationship="Self.fk_AdditonalInfoID" FromRole="AdditionalInfo" ToRole="Illness" />
+        </EntityType>
+        <EntityType Name="Illness">
+          <Key>
+            <PropertyRef Name="IllnessID" />
+          </Key>
+          <Property Name="IllnessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RF_ID" Type="Int32" />
+          <Property Name="IllnessTypeID" Type="Int32" />
+          <Property Name="TreatmentID" Type="Int32" />
+          <Property Name="AdditionalInfoID" Type="Int32" />
+          <NavigationProperty Name="AdditionalInfo" Relationship="Self.fk_AdditonalInfoID" FromRole="Illness" ToRole="AdditionalInfo" />
+          <NavigationProperty Name="IllnessType" Relationship="Self.fK_IllnessTypeID" FromRole="Illness" ToRole="IllnessType" />
+          <NavigationProperty Name="RiskFactor" Relationship="Self.fk_RFID1" FromRole="Illness" ToRole="RiskFactor" />
+          <NavigationProperty Name="Treatment" Relationship="Self.fk_TreatmentID" FromRole="Illness" ToRole="Treatment" />
+          <NavigationProperty Name="Symptoms" Relationship="Self.SymptomIllness" FromRole="Illness" ToRole="Symptom" />
+        </EntityType>
+        <EntityType Name="IllnessType">
+          <Key>
+            <PropertyRef Name="IllnessTypeID" />
+          </Key>
+          <Property Name="IllnessTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Illnesses" Relationship="Self.fK_IllnessTypeID" FromRole="IllnessType" ToRole="Illness" />
+          <NavigationProperty Name="Medications" Relationship="Self.fk_ITID1" FromRole="IllnessType" ToRole="Medication" />
+        </EntityType>
+        <EntityType Name="Medication">
+          <Key>
+            <PropertyRef Name="MedicationID" />
+          </Key>
+          <Property Name="MedicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MT_ID" Type="Int32" />
+          <Property Name="IllnessTypeID" Type="Int32" />
+          <NavigationProperty Name="IllnessType" Relationship="Self.fk_ITID1" FromRole="Medication" ToRole="IllnessType" />
+          <NavigationProperty Name="MedicationType" Relationship="Self.fk_MTID" FromRole="Medication" ToRole="MedicationType" />
+          <NavigationProperty Name="Treatments" Relationship="Self.TreatmentMedication" FromRole="Medication" ToRole="Treatment" />
+        </EntityType>
+        <EntityType Name="MedicationType">
+          <Key>
+            <PropertyRef Name="MT_ID" />
+          </Key>
+          <Property Name="MT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Medications" Relationship="Self.fk_MTID" FromRole="MedicationType" ToRole="Medication" />
+        </EntityType>
+        <EntityType Name="RiskFactor">
+          <Key>
+            <PropertyRef Name="RF_ID" />
+          </Key>
+          <Property Name="RF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RFT_ID" Type="Int32" />
+          <NavigationProperty Name="Illnesses" Relationship="Self.fk_RFID1" FromRole="RiskFactor" ToRole="Illness" />
+          <NavigationProperty Name="RiskFactorType" Relationship="Self.fk_RFT_IF" FromRole="RiskFactor" ToRole="RiskFactorType" />
+        </EntityType>
+        <EntityType Name="RiskFactorType">
+          <Key>
+            <PropertyRef Name="RFT_ID" />
+          </Key>
+          <Property Name="RFT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RiskFactors" Relationship="Self.fk_RFT_IF" FromRole="RiskFactorType" ToRole="RiskFactor" />
+        </EntityType>
+        <EntityType Name="Symptom">
+          <Key>
+            <PropertyRef Name="SymptomID" />
+          </Key>
+          <Property Name="SymptomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SymptomTypeID" Type="Int32" />
+          <NavigationProperty Name="SymptomType" Relationship="Self.fk_STID" FromRole="Symptom" ToRole="SymptomType" />
+          <NavigationProperty Name="Illnesses" Relationship="Self.SymptomIllness" FromRole="Symptom" ToRole="Illness" />
+        </EntityType>
+        <EntityType Name="SymptomType">
+          <Key>
+            <PropertyRef Name="SymptomTypeID" />
+          </Key>
+          <Property Name="SymptomTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Symptoms" Relationship="Self.fk_STID" FromRole="SymptomType" ToRole="Symptom" />
+        </EntityType>
+        <EntityType Name="Treatment">
+          <Key>
+            <PropertyRef Name="TreatmentID" />
+          </Key>
+          <Property Name="TreatmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TreatmentTypeID" Type="Int32" />
+          <NavigationProperty Name="Illnesses" Relationship="Self.fk_TreatmentID" FromRole="Treatment" ToRole="Illness" />
+          <NavigationProperty Name="TreatmentType" Relationship="Self.fk_TreatmentTypeID" FromRole="Treatment" ToRole="TreatmentType" />
+          <NavigationProperty Name="Medications" Relationship="Self.TreatmentMedication" FromRole="Treatment" ToRole="Medication" />
+        </EntityType>
+        <EntityType Name="TreatmentType">
+          <Key>
+            <PropertyRef Name="TreatmentTypeID" />
+          </Key>
+          <Property Name="TreatmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Treatments" Relationship="Self.fk_TreatmentTypeID" FromRole="TreatmentType" ToRole="Treatment" />
+        </EntityType>
+        <Association Name="fk_AdditonalInfoID">
+          <End Role="AdditionalInfo" Type="Self.AdditionalInfo" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdditionalInfo">
+              <PropertyRef Name="AdditionalInfoID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="AdditionalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fK_IllnessTypeID">
+          <End Role="IllnessType" Type="Self.IllnessType" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IllnessType">
+              <PropertyRef Name="IllnessTypeID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="IllnessTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RFID1">
+          <End Role="RiskFactor" Type="Self.RiskFactor" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskFactor">
+              <PropertyRef Name="RF_ID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="RF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TreatmentID">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="0..1" />
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentID" />
+            </Principal>
+            <Dependent Role="Illness">
+              <PropertyRef Name="TreatmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ITID1">
+          <End Role="IllnessType" Type="Self.IllnessType" Multiplicity="0..1" />
+          <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IllnessType">
+              <PropertyRef Name="IllnessTypeID" />
+            </Principal>
+            <Dependent Role="Medication">
+              <PropertyRef Name="IllnessTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MTID">
+          <End Role="MedicationType" Type="Self.MedicationType" Multiplicity="0..1" />
+          <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicationType">
+              <PropertyRef Name="MT_ID" />
+            </Principal>
+            <Dependent Role="Medication">
+              <PropertyRef Name="MT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RFT_IF">
+          <End Role="RiskFactorType" Type="Self.RiskFactorType" Multiplicity="0..1" />
+          <End Role="RiskFactor" Type="Self.RiskFactor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskFactorType">
+              <PropertyRef Name="RFT_ID" />
+            </Principal>
+            <Dependent Role="RiskFactor">
+              <PropertyRef Name="RFT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_STID">
+          <End Role="SymptomType" Type="Self.SymptomType" Multiplicity="0..1" />
+          <End Role="Symptom" Type="Self.Symptom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SymptomType">
+              <PropertyRef Name="SymptomTypeID" />
+            </Principal>
+            <Dependent Role="Symptom">
+              <PropertyRef Name="SymptomTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TreatmentTypeID">
+          <End Role="TreatmentType" Type="Self.TreatmentType" Multiplicity="0..1" />
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentType">
+              <PropertyRef Name="TreatmentTypeID" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="TreatmentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SymptomIllness">
+          <End Role="Illness" Type="Self.Illness" Multiplicity="*" />
+          <End Role="Symptom" Type="Self.Symptom" Multiplicity="*" />
+        </Association>
+        <Association Name="TreatmentMedication">
+          <End Role="Medication" Type="Self.Medication" Multiplicity="*" />
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DiseaseDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdditionalInfoes" EntityType="Self.AdditionalInfo" />
+          <EntitySet Name="Illnesses" EntityType="Self.Illness" />
+          <EntitySet Name="IllnessTypes" EntityType="Self.IllnessType" />
+          <EntitySet Name="Medications" EntityType="Self.Medication" />
+          <EntitySet Name="MedicationTypes" EntityType="Self.MedicationType" />
+          <EntitySet Name="RiskFactors" EntityType="Self.RiskFactor" />
+          <EntitySet Name="RiskFactorTypes" EntityType="Self.RiskFactorType" />
+          <EntitySet Name="Symptoms" EntityType="Self.Symptom" />
+          <EntitySet Name="SymptomTypes" EntityType="Self.SymptomType" />
+          <EntitySet Name="Treatments" EntityType="Self.Treatment" />
+          <EntitySet Name="TreatmentTypes" EntityType="Self.TreatmentType" />
+          <AssociationSet Name="fk_AdditonalInfoID" Association="Self.fk_AdditonalInfoID">
+            <End Role="AdditionalInfo" EntitySet="AdditionalInfoes" />
+            <End Role="Illness" EntitySet="Illnesses" />
+          </AssociationSet>
+          <AssociationSet Name="fK_IllnessTypeID" Association="Self.fK_IllnessTypeID">
+            <End Role="IllnessType" EntitySet="IllnessTypes" />
+            <End Role="Illness" EntitySet="Illnesses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RFID1" Association="Self.fk_RFID1">
+            <End Role="RiskFactor" EntitySet="RiskFactors" />
+            <End Role="Illness" EntitySet="Illnesses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TreatmentID" Association="Self.fk_TreatmentID">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="Illness" EntitySet="Illnesses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ITID1" Association="Self.fk_ITID1">
+            <End Role="IllnessType" EntitySet="IllnessTypes" />
+            <End Role="Medication" EntitySet="Medications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MTID" Association="Self.fk_MTID">
+            <End Role="MedicationType" EntitySet="MedicationTypes" />
+            <End Role="Medication" EntitySet="Medications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RFT_IF" Association="Self.fk_RFT_IF">
+            <End Role="RiskFactorType" EntitySet="RiskFactorTypes" />
+            <End Role="RiskFactor" EntitySet="RiskFactors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_STID" Association="Self.fk_STID">
+            <End Role="SymptomType" EntitySet="SymptomTypes" />
+            <End Role="Symptom" EntitySet="Symptoms" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TreatmentTypeID" Association="Self.fk_TreatmentTypeID">
+            <End Role="TreatmentType" EntitySet="TreatmentTypes" />
+            <End Role="Treatment" EntitySet="Treatments" />
+          </AssociationSet>
+          <AssociationSet Name="SymptomIllness" Association="Self.SymptomIllness">
+            <End Role="Illness" EntitySet="Illnesses" />
+            <End Role="Symptom" EntitySet="Symptoms" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentMedication" Association="Self.TreatmentMedication">
+            <End Role="Medication" EntitySet="Medications" />
+            <End Role="Treatment" EntitySet="Treatments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DiseaseDBModelStoreContainer" CdmEntityContainer="DiseaseDBEntities">
+          <EntitySetMapping Name="AdditionalInfoes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.AdditionalInfo">
+              <MappingFragment StoreEntitySet="AdditionalInfo">
+                <ScalarProperty Name="AdditionalInfoID" ColumnName="AdditionalInfoID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Illnesses">
+            <EntityTypeMapping TypeName="DiseaseDBModel.Illness">
+              <MappingFragment StoreEntitySet="Illness">
+                <ScalarProperty Name="IllnessID" ColumnName="IllnessID" />
+                <ScalarProperty Name="RF_ID" ColumnName="RF_ID" />
+                <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+                <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+                <ScalarProperty Name="AdditionalInfoID" ColumnName="AdditionalInfoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IllnessTypes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.IllnessType">
+              <MappingFragment StoreEntitySet="IllnessType">
+                <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medications">
+            <EntityTypeMapping TypeName="DiseaseDBModel.Medication">
+              <MappingFragment StoreEntitySet="Medication">
+                <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MT_ID" ColumnName="MT_ID" />
+                <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicationTypes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.MedicationType">
+              <MappingFragment StoreEntitySet="MedicationType">
+                <ScalarProperty Name="MT_ID" ColumnName="MT_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RiskFactors">
+            <EntityTypeMapping TypeName="DiseaseDBModel.RiskFactor">
+              <MappingFragment StoreEntitySet="RiskFactor">
+                <ScalarProperty Name="RF_ID" ColumnName="RF_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RFT_ID" ColumnName="RFT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RiskFactorTypes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.RiskFactorType">
+              <MappingFragment StoreEntitySet="RiskFactorType">
+                <ScalarProperty Name="RFT_ID" ColumnName="RFT_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Symptoms">
+            <EntityTypeMapping TypeName="DiseaseDBModel.Symptom">
+              <MappingFragment StoreEntitySet="Symptom">
+                <ScalarProperty Name="SymptomID" ColumnName="SymptomID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SymptomTypeID" ColumnName="SymptomTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymptomTypes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.SymptomType">
+              <MappingFragment StoreEntitySet="SymptomType">
+                <ScalarProperty Name="SymptomTypeID" ColumnName="SymptomTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Treatments">
+            <EntityTypeMapping TypeName="DiseaseDBModel.Treatment">
+              <MappingFragment StoreEntitySet="Treatment">
+                <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TreatmentTypeID" ColumnName="TreatmentTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreatmentTypes">
+            <EntityTypeMapping TypeName="DiseaseDBModel.TreatmentType">
+              <MappingFragment StoreEntitySet="TreatmentType">
+                <ScalarProperty Name="TreatmentTypeID" ColumnName="TreatmentTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SymptomIllness" TypeName="DiseaseDBModel.SymptomIllness" StoreEntitySet="SymptomIllness">
+            <EndProperty Name="Illness">
+              <ScalarProperty Name="IllnessID" ColumnName="IllnessID" />
+            </EndProperty>
+            <EndProperty Name="Symptom">
+              <ScalarProperty Name="SymptomID" ColumnName="SymptomID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TreatmentMedication" TypeName="DiseaseDBModel.TreatmentMedication" StoreEntitySet="TreatmentMedication">
+            <EndProperty Name="Medication">
+              <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
+            </EndProperty>
+            <EndProperty Name="Treatment">
+              <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

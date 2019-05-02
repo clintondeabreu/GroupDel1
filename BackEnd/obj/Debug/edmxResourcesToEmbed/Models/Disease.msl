@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DiseaseDBModelStoreContainer" CdmEntityContainer="DiseaseDBEntities">
+    <EntitySetMapping Name="AdditionalInfoes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.AdditionalInfo">
+        <MappingFragment StoreEntitySet="AdditionalInfo">
+          <ScalarProperty Name="AdditionalInfoID" ColumnName="AdditionalInfoID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Illnesses">
+      <EntityTypeMapping TypeName="DiseaseDBModel.Illness">
+        <MappingFragment StoreEntitySet="Illness">
+          <ScalarProperty Name="IllnessID" ColumnName="IllnessID" />
+          <ScalarProperty Name="RF_ID" ColumnName="RF_ID" />
+          <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+          <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+          <ScalarProperty Name="AdditionalInfoID" ColumnName="AdditionalInfoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IllnessTypes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.IllnessType">
+        <MappingFragment StoreEntitySet="IllnessType">
+          <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medications">
+      <EntityTypeMapping TypeName="DiseaseDBModel.Medication">
+        <MappingFragment StoreEntitySet="Medication">
+          <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MT_ID" ColumnName="MT_ID" />
+          <ScalarProperty Name="IllnessTypeID" ColumnName="IllnessTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MedicationTypes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.MedicationType">
+        <MappingFragment StoreEntitySet="MedicationType">
+          <ScalarProperty Name="MT_ID" ColumnName="MT_ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RiskFactors">
+      <EntityTypeMapping TypeName="DiseaseDBModel.RiskFactor">
+        <MappingFragment StoreEntitySet="RiskFactor">
+          <ScalarProperty Name="RF_ID" ColumnName="RF_ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RFT_ID" ColumnName="RFT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RiskFactorTypes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.RiskFactorType">
+        <MappingFragment StoreEntitySet="RiskFactorType">
+          <ScalarProperty Name="RFT_ID" ColumnName="RFT_ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Symptoms">
+      <EntityTypeMapping TypeName="DiseaseDBModel.Symptom">
+        <MappingFragment StoreEntitySet="Symptom">
+          <ScalarProperty Name="SymptomID" ColumnName="SymptomID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SymptomTypeID" ColumnName="SymptomTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SymptomTypes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.SymptomType">
+        <MappingFragment StoreEntitySet="SymptomType">
+          <ScalarProperty Name="SymptomTypeID" ColumnName="SymptomTypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Treatments">
+      <EntityTypeMapping TypeName="DiseaseDBModel.Treatment">
+        <MappingFragment StoreEntitySet="Treatment">
+          <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TreatmentTypeID" ColumnName="TreatmentTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreatmentTypes">
+      <EntityTypeMapping TypeName="DiseaseDBModel.TreatmentType">
+        <MappingFragment StoreEntitySet="TreatmentType">
+          <ScalarProperty Name="TreatmentTypeID" ColumnName="TreatmentTypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="SymptomIllness" TypeName="DiseaseDBModel.SymptomIllness" StoreEntitySet="SymptomIllness">
+      <EndProperty Name="Illness">
+        <ScalarProperty Name="IllnessID" ColumnName="IllnessID" />
+      </EndProperty>
+      <EndProperty Name="Symptom">
+        <ScalarProperty Name="SymptomID" ColumnName="SymptomID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentMedication" TypeName="DiseaseDBModel.TreatmentMedication" StoreEntitySet="TreatmentMedication">
+      <EndProperty Name="Medication">
+        <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
+      </EndProperty>
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentID" ColumnName="TreatmentID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
